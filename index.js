@@ -9,13 +9,16 @@ const info = document.querySelector("#info")
 const frontColumn = document.querySelector("#front-column")
 const productTitle = document.querySelector("#name")
 
-window.addEventListener('scroll',() => {
-    let value = window.scrollY
-    bgColumn.style.top = value*1.05 +'px'
-    frontColumnHood.style.top = value*0.5 +'px'
-    column.style.top = value*0.2 +'px'
-    frontColumn.style.top = value* 0 +'px'
-    productTitle.style.marginTop = value * 0.2 +'px'
+const hightlights = document.querySelectorAll(".highlighted")
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        entry.target.classList.toggle("show",entry.isIntersecting)
+    })
+},{
+    threshold:1,
 })
 
-burgerbtn.addEventListener("click",() => navitems.classList.toggle("active"))
+hightlights.forEach(hightlight => {
+    observer.observe(hightlight)
+})
